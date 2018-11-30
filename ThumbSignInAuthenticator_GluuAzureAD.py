@@ -337,8 +337,8 @@ class PersonAuthentication(PersonAuthenticationType):
 
     def enroll_azure_user_in_gluu_ldap(self, azure_auth_response_json):
         user_service = CdiUtil.bean(UserService)
-        azure_user_principal_name = azure_auth_response_json.get("upn")
-        found_user = self.find_user_from_gluu_ldap_by_attribute(user_service, "mail", azure_user_principal_name)
+        azure_user_principal_name = azure_auth_response_json.get("oid")
+        found_user = self.find_user_from_gluu_ldap_by_attribute(user_service, "uid", azure_user_principal_name)
         print "ThumbSignIn. Value of found_user is %s" % found_user
         if found_user is None:
             new_user = User()
@@ -378,12 +378,12 @@ class PersonAuthentication(PersonAuthenticationType):
 
     @staticmethod
     def populate_user_obj_with_azure_user_data(user, azure_auth_response_json):
-        # attributes_mapping = ["upn:uid", "given_name:givenName", "family_name:sn", "upn:mail"]
+        # attributes_mapping = ["oid:uid", "given_name:givenName", "family_name:sn", "upn:mail"]
         for attributesMappingEntry in attributes_mapping.entrySet():
             azure_ad_attribute = attributesMappingEntry.getKey()
             gluu_ldap_attribute = attributesMappingEntry.getValue()
             gluu_ldap_attribute_value = azure_auth_response_json.get(azure_ad_attribute)
-            if (gluu_ldap_attribute is not None) & (gluu_ldap_attribute_value != "undefined"):
+            if (gluu_ldap_attribute is not None):
                 user.setAttribute(gluu_ldap_attribute, gluu_ldap_attribute_value)
         return None
 
