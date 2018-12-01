@@ -41,14 +41,14 @@ class PersonAuthentication(PersonAuthenticationType):
         global AZURE_AD_GRAPH_RESOURCE_ENDPOINT
         AZURE_AD_GRAPH_RESOURCE_ENDPOINT = 'https://graph.windows.net'
 
-        global ADMIN
-        ADMIN = 'admin'
-
         global azure_user_uuid
         azure_user_uuid = "oid"
 
         global gluu_ldap_uuid
         gluu_ldap_uuid = "uid"
+
+        global ADMIN
+        ADMIN = 'admin'
 
         global attributes_mapping
 

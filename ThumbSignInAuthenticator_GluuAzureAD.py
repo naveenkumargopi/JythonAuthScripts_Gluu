@@ -91,14 +91,14 @@ class PersonAuthentication(PersonAuthenticationType):
         global azure_client_secret
         azure_client_secret = configuration_attributes.get("azure_client_secret").getValue2()
 
+        global ADMIN
+        ADMIN = 'admin'
+
         global azure_user_uuid
         azure_user_uuid = "oid"
 
         global gluu_ldap_uuid
         gluu_ldap_uuid = "uid"
-
-        global ADMIN
-        ADMIN = 'admin'
 
         global attributes_mapping
 
