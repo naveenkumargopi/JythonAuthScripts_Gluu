@@ -91,6 +91,15 @@ class PersonAuthentication(PersonAuthenticationType):
         global azure_client_secret
         azure_client_secret = configuration_attributes.get("azure_client_secret").getValue2()
 
+        global azure_user_uuid
+        azure_user_uuid = "oid"
+
+        global gluu_ldap_uuid
+        gluu_ldap_uuid = "uid"
+
+        global ADMIN
+        ADMIN = 'admin'
+
         global attributes_mapping
 
         if (configuration_attributes.containsKey("azure_ad_attributes_list") and
@@ -312,14 +321,14 @@ class PersonAuthentication(PersonAuthenticationType):
         if StringHelper.isNotEmptyString(user_name) and StringHelper.isNotEmptyString(user_password):
 
             # Special condition to allow for Gluu admin login
-            if StringHelper.equals(user_name, "admin"):
+            if StringHelper.equals(user_name, ADMIN):
                 return self.authenticate_user_in_gluu_ldap(authentication_service, user_name, user_password)
 
             # Authenticate user credentials with Azure AD non-interactively
             azure_auth_response = self.azureAuthConnector.authenticateUserInAzure(azure_tenant_id, user_name, user_password, azure_client_id, azure_client_secret)
             print "ThumbSignIn. Value of azure_auth_response is %s" % azure_auth_response
             azure_auth_response_json = JSONObject(azure_auth_response)
-            if azure_auth_response_json.has("upn"):
+            if azure_auth_response_json.has(azure_user_uuid):
                 # Azure authentication has succeeded. User needs to be enrolled in Gluu LDAP
                 user = self.enroll_azure_user_in_gluu_ldap(azure_auth_response_json)
                 if user is None:
@@ -337,8 +346,8 @@ class PersonAuthentication(PersonAuthenticationType):
 
     def enroll_azure_user_in_gluu_ldap(self, azure_auth_response_json):
         user_service = CdiUtil.bean(UserService)
-        azure_user_principal_name = azure_auth_response_json.get("oid")
-        found_user = self.find_user_from_gluu_ldap_by_attribute(user_service, "uid", azure_user_principal_name)
+        azure_user_uuid_value = azure_auth_response_json.get(azure_user_uuid)
+        found_user = self.find_user_from_gluu_ldap_by_attribute(user_service, gluu_ldap_uuid, azure_user_uuid_value)
         print "ThumbSignIn. Value of found_user is %s" % found_user
         if found_user is None:
             new_user = User()
@@ -365,6 +374,20 @@ class PersonAuthentication(PersonAuthenticationType):
         return found_user
 
     @staticmethod
+    def populate_user_obj_with_azure_user_data(user, azure_auth_response_json):
+        # attributes_mapping = ["oid:uid", "given_name:givenName", "family_name:sn", "upn:mail"]
+        for attributesMappingEntry in attributes_mapping.entrySet():
+            azure_ad_attribute_key = attributesMappingEntry.getKey()
+            gluu_ldap_attribute_key = attributesMappingEntry.getValue()
+            gluu_ldap_attribute_value = "undefined"
+            if azure_auth_response_json.has(azure_ad_attribute_key):
+                gluu_ldap_attribute_value = azure_auth_response_json.get(azure_ad_attribute_key)
+            print gluu_ldap_attribute_key + ' : ' + gluu_ldap_attribute_value
+            if (gluu_ldap_attribute_key is not None) & (gluu_ldap_attribute_value != "undefined"):
+                user.setAttribute(gluu_ldap_attribute_key, gluu_ldap_attribute_value)
+        return None
+
+    @staticmethod
     def authenticate_user_in_gluu_ldap(authentication_service, user_name, user_password):
         return authentication_service.authenticate(user_name, user_password)
 
@@ -375,17 +398,6 @@ class PersonAuthentication(PersonAuthenticationType):
     @staticmethod
     def find_user_from_gluu_ldap_by_attribute(user_service, attribute_name, attribute_value):
         return user_service.getUserByAttribute(attribute_name, attribute_value)
-
-    @staticmethod
-    def populate_user_obj_with_azure_user_data(user, azure_auth_response_json):
-        # attributes_mapping = ["oid:uid", "given_name:givenName", "family_name:sn", "upn:mail"]
-        for attributesMappingEntry in attributes_mapping.entrySet():
-            azure_ad_attribute = attributesMappingEntry.getKey()
-            gluu_ldap_attribute = attributesMappingEntry.getValue()
-            gluu_ldap_attribute_value = azure_auth_response_json.get(azure_ad_attribute)
-            if (gluu_ldap_attribute is not None):
-                user.setAttribute(gluu_ldap_attribute, gluu_ldap_attribute_value)
-        return None
 
     @staticmethod
     def verify_user_login_flow(identity):
