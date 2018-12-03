@@ -1,7 +1,7 @@
 
 # Configurations required for ThumbSignInAuthenticator_GluuLocalLDAP.py:
 
-##A) Required Custom property (to be configured in Gluu Admin Dashboard):
+## A) Required Custom property (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
@@ -17,7 +17,7 @@
     b) To login into gluu dashboard as administrator, goto Gluu URL (for eg., [https://idp-stage.thumbsignin.com])
        and login with admin credentials
 
-##B) Required Dependencies:
+## B) Required Dependencies:
 
     1) ThumbSignIn Java SDK can be downloaded from [https://thumbsignin.com/download/thumbsigninJavaSdk] and 
        needs to be deployed in `'/opt/gluu-server-3.1.2/opt/gluu/jetty/oxauth/lib/ext'` folder of Gluu Server
@@ -44,7 +44,7 @@
        
        `service oxauth start` 
       
-##C) Enabling the script in Gluu Admin Dashboard:
+## C) Enabling the script in Gluu Admin Dashboard:
 
    a) Login into Gluu Admin Dashboard -> Go to `"Manage Authentication"` -> `"Default Authentication Method"` ->
       Select `'thumbsignin'` as the default acr and update the configuration.
@@ -61,9 +61,9 @@ Note: It is recommended to test the new login flow in a different browser to avo
 
 For more information, we can also refer to [https://thumbsignin.com/download/thumbsigninGluuIntegrationDoc]
    
-#Configurations required for ThumbSignInAuthenticator_GluuAzureAD.py:
+# Configurations required for ThumbSignInAuthenticator_GluuAzureAD.py:
 
-##A) Required Custom property (to be configured in Gluu Admin Dashboard):
+## A) Required Custom property (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
@@ -101,7 +101,7 @@ For more information, we can also refer to [https://thumbsignin.com/download/thu
        
        `gluu_ldap_attributes_list = uid,givenName,sn,mail`
 
-##B) Required Dependencies:
+## B) Required Dependencies:
 
     1) ThumbSignIn Java SDK can be downloaded from [https://thumbsignin.com/download/thumbsigninJavaSdk] and 
        needs to be deployed in `'/opt/gluu-server-3.1.2/opt/gluu/jetty/oxauth/lib/ext'` folder of Gluu Server
@@ -140,7 +140,7 @@ For more information, we can also refer to [https://thumbsignin.com/download/thu
        
        `service oxauth start` 
       
-##C) Enabling the script in Gluu Admin Dashboard:
+## C) Enabling the script in Gluu Admin Dashboard:
 
    a) Login into Gluu Admin Dashboard -> Go to `"Manage Authentication"` -> `"Default Authentication Method"` ->
       Select `'thumbsignin_withazuread'` as the default acr and update the configuration.
