@@ -1,7 +1,7 @@
 
-**Configurations required for ThumbSignInAuthenticator_GluuLocalLDAP.py:**
+# Configurations required for ThumbSignInAuthenticator_GluuLocalLDAP.py:
 
-*A) Required Custom property (to be configured in Gluu Admin Dashboard):*
+##A) Required Custom property (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
@@ -11,20 +11,20 @@
     
     Note:
     
-    a) We need to create an account for the Gluu server instance in ThumbSignIn (https://thumbsignin.com) and
+    a) We need to create an account for the Gluu server instance in ThumbSignIn ([https://thumbsignin.com]) and
        configure the application id and secret in the `ts_apiKey` and `ts_apiSecret` respectively
        
-    b) To login into gluu dashboard as administrator, goto Gluu URL (for eg., `https://idp-stage.thumbsignin.com`)
+    b) To login into gluu dashboard as administrator, goto Gluu URL (for eg., [https://idp-stage.thumbsignin.com])
        and login with admin credentials
 
-*B) Required Dependencies:*
+##B) Required Dependencies:
 
-    1) ThumbSignIn Java SDK can be downloaded from `https://thumbsignin.com/download/thumbsigninJavaSdk` and 
+    1) ThumbSignIn Java SDK can be downloaded from [https://thumbsignin.com/download/thumbsigninJavaSdk] and 
        needs to be deployed in `'/opt/gluu-server-3.1.2/opt/gluu/jetty/oxauth/lib/ext'` folder of Gluu Server
        
     2) ThumbSignIn UI components can be deployed in Gluu Server via below steps:
     
-        a) Clone the project from `https://gitlab.pramati.com/ThumbSignIn/oxauth`. This project contains all the 
+        a) Clone the project from [https://gitlab.pramati.com/ThumbSignIn/oxauth]. This project contains all the 
            required TSI specific UI changes under `'/oxauth/auth/thumbsignin'` folder of this project.
            
         b) cd into `oxauth` folder
@@ -44,7 +44,7 @@
        
        `service oxauth start` 
       
-*C) Enabling the script in Gluu Admin Dashboard:*
+##C) Enabling the script in Gluu Admin Dashboard:
 
    a) Login into Gluu Admin Dashboard -> Go to `"Manage Authentication"` -> `"Default Authentication Method"` ->
       Select `'thumbsignin'` as the default acr and update the configuration.
@@ -59,11 +59,11 @@
       
 Note: It is recommended to test the new login flow in a different browser to avoid admin account lockout in Gluu.
 
-For more information, we can also refer to `https://thumbsignin.com/download/thumbsigninGluuIntegrationDoc`
+For more information, we can also refer to [https://thumbsignin.com/download/thumbsigninGluuIntegrationDoc]
    
-**Configurations required for ThumbSignInAuthenticator_GluuAzureAD.py:**
+#Configurations required for ThumbSignInAuthenticator_GluuAzureAD.py:
 
-*A) Required Custom property (to be configured in Gluu Admin Dashboard):*
+##A) Required Custom property (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
@@ -83,7 +83,7 @@ For more information, we can also refer to `https://thumbsignin.com/download/thu
     
     Note:
     
-    a) An administrator of the Azure AD portal (portal.azure.com) needs to create an application for Gluu Server in the azure portal (with necessary permissions)
+    a) An administrator of the Azure AD portal ([portal.azure.com]) needs to create an application for Gluu Server in the azure portal (with necessary permissions)
        and configure the tenant id, client id and client secret in the Custom properties of this Jython script.
        
        To connect to our internal Azure AD test instance, we can use the below values:
@@ -101,14 +101,14 @@ For more information, we can also refer to `https://thumbsignin.com/download/thu
        
        `gluu_ldap_attributes_list = uid,givenName,sn,mail`
 
-*B) Required Dependencies:*
+##B) Required Dependencies:
 
-    1) ThumbSignIn Java SDK can be downloaded from `https://thumbsignin.com/download/thumbsigninJavaSdk` and 
+    1) ThumbSignIn Java SDK can be downloaded from [https://thumbsignin.com/download/thumbsigninJavaSdk] and 
        needs to be deployed in `'/opt/gluu-server-3.1.2/opt/gluu/jetty/oxauth/lib/ext'` folder of Gluu Server
        
     2) We also need to deploy the Azure Java SDK in Gluu Server. Steps are given below:
     
-       a) Clone the project from `https://gitlab.pramati.com/ThumbSignIn/azurejavasdkforgluu`
+       a) Clone the project from [https://gitlab.pramati.com/ThumbSignIn/azurejavasdkforgluu]
        
        b) cd into the project folder
        
@@ -120,7 +120,7 @@ For more information, we can also refer to `https://thumbsignin.com/download/thu
        
     3) ThumbSignIn UI components can be deployed in Gluu Server via below steps:
     
-        a) Clone the project from `https://gitlab.pramati.com/ThumbSignIn/oxauth`. This project contains all the 
+        a) Clone the project from [https://gitlab.pramati.com/ThumbSignIn/oxauth]. This project contains all the 
            required TSI specific UI changes under `'/oxauth/auth/thumbsignin'` folder of this project.
            
         b) cd into `oxauth` folder
@@ -140,7 +140,7 @@ For more information, we can also refer to `https://thumbsignin.com/download/thu
        
        `service oxauth start` 
       
-*C) Enabling the script in Gluu Admin Dashboard:*
+##C) Enabling the script in Gluu Admin Dashboard:
 
    a) Login into Gluu Admin Dashboard -> Go to `"Manage Authentication"` -> `"Default Authentication Method"` ->
       Select `'thumbsignin_withazuread'` as the default acr and update the configuration.
@@ -151,7 +151,7 @@ For more information, we can also refer to `https://thumbsignin.com/download/thu
    
    b) To test the login flow in Gluu, we can add new users in Azure AD as shown below. 
    
-      i) Login into Azure portal (portal.azure.com) with admin credentials.
+      i) Login into Azure portal ([portal.azure.com]) with admin credentials.
       
       ii) Then click `'Azure Active Directory'` -> `Manage Users` -> Click `'New user'` button
       
