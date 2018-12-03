@@ -1,7 +1,8 @@
 
-## Configurations required for ThumbSignInAuthenticator_GluuLocalLDAP.py:
+## Deployment Steps for enabling ThumbSignIn with Gluu (With Gluu LDAP maintaining the users):
+---
 
-### A) Required Custom property (to be configured in Gluu Admin Dashboard):
+### A) Add ThumbSignInAuthenticator_GluuLocalLDAP.py with below Custom properties (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
@@ -61,9 +62,10 @@ Note: It is recommended to test the new login flow in a different browser to avo
 
 For more information, we can also refer to [https://thumbsignin.com/download/thumbsigninGluuIntegrationDoc]
    
-## Configurations required for ThumbSignInAuthenticator_GluuAzureAD.py:
+## Deployment Steps for enabling ThumbSignIn with Gluu (With Azure AD maintaining the users):
+---
 
-### A) Required Custom property (to be configured in Gluu Admin Dashboard):
+### A) Add ThumbSignInAuthenticator_GluuAzureAD.py with below Custom properties (to be configured in Gluu Admin Dashboard):
 
     1) `ts_host = https://api.thumbsignin.com`
     
