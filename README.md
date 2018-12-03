@@ -1,5 +1,6 @@
 
-## Deployment Steps for enabling ThumbSignIn with Gluu (With Gluu LDAP maintaining the users):
+## Enabling ThumbSignIn with Gluu (With Gluu LDAP maintaining the users):
+
 ---
 
 ### A) Add ThumbSignInAuthenticator_GluuLocalLDAP.py with below Custom properties (to be configured in Gluu Admin Dashboard):
@@ -62,7 +63,8 @@ Note: It is recommended to test the new login flow in a different browser to avo
 
 For more information, we can also refer to [https://thumbsignin.com/download/thumbsigninGluuIntegrationDoc]
    
-## Deployment Steps for enabling ThumbSignIn with Gluu (With Azure AD maintaining the users):
+## Enabling ThumbSignIn with Gluu (With Azure AD maintaining the users):
+
 ---
 
 ### A) Add ThumbSignInAuthenticator_GluuAzureAD.py with below Custom properties (to be configured in Gluu Admin Dashboard):
